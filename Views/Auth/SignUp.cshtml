@@ -1,0 +1,68 @@
+﻿@model SciFiReviews.Models.ViewModels.SignUpViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>SignUp</h1>
+
+        @if (!ViewContext.ModelState.IsValid)
+        {
+            <div asp-validation-summary="All"></div>
+        }
+
+        <form method="post" asp-action="SignUp">
+            <div class="form-group">
+                <label class="sr-only">First Name</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <input type="text" class="form-control" placeholder="First Name" asp-for="FirstName" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Last Name</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+                <input type="text" class="form-control" placeholder="Last Name" asp-for="LastName" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Middle Name</label>
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+                <input type="text" class="form-control" placeholder="Middle Name" asp-for="MiddleName" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Username</label>
+                <span asp-validation-for="Username" class="text-danger"></span>
+                <input type="text" class="form-control" placeholder="Username" asp-for="Username" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Date Of Birth</label>
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                <input type="datetime" class="form-control" placeholder="Date Of Birth" asp-for="DateOfBirth" value="" id="signUpDateOfBirth" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="password" class="form-control" placeholder="Password" asp-for="Password" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Repeat Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="password" class="form-control" placeholder="Repeat Password" asp-for="RepeatPassword" />
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only">Email Address</label>
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                <input type="text" class="form-control" placeholder="Email Address" asp-for="EmailAddress" />
+            </div>
+
+            <br />
+
+            <input type="submit" class="btn btn-danger" value="Sign Up" />
+            <a class="btn btn-default" asp-controller="Home" asp-action="Index">Cancel</a>
+        </form>
+    </div>
+</div>
+

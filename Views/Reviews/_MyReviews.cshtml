@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SciFiReviews.Models.DataModels.Review>
+
+<div id="listOfMyReviews">
+    @foreach (var review in Model)
+    {
+        <div class="well well-lg">
+            <div class="col-md-3"><strong>@review.Title</strong></div>
+            <div class="col-md-3">Movie: @review.Movie.Title (@review.Movie.ReleaseYear)</div>
+            <div class="col-md-2">Time: @review.SubmitTime.ToShortDateString()</div>
+
+            <div class="col-md-2">
+                <div class="hidden movie-rating" data-target="#rating_@review.Id">@review.Rating</div>
+
+                <div class="ratings-outer">
+                    <i class="fas fa-crow"></i>
+                    <i class="fas fa-crow"></i>
+                    <i class="fas fa-crow"></i>
+                    <i class="fas fa-crow"></i>
+                    <i class="fas fa-crow"></i>
+                    <div id="rating_@review.Id" class="ratings-inner">
+                        <i class="fas fa-crow"></i>
+                        <i class="fas fa-crow"></i>
+                        <i class="fas fa-crow"></i>
+                        <i class="fas fa-crow"></i>
+                        <i class="fas fa-crow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <a asp-action="EditReview" asp-route-id="@review.Id">Edit Review</a>
+            </div>
+        </div>
+    }
+</div>

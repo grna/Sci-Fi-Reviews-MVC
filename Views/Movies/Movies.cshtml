@@ -1,0 +1,37 @@
+﻿@using SciFiReviews.Models.DataModels
+@model List<Movie>
+
+<div class="row">
+    <h1 class="col-md-4">Movie List</h1>
+
+    <div id="movieSearch"
+         class="col-md-8"
+         action="MoviesAjax"
+         target="#listOfMovies"
+         style="margin-top:25px;">
+        <label>Search:</label>
+        <input type="search" oninput="onSearchInput('#movieSearch', this.value, '#moviesPager')" 
+               class="input-sm" placeholder="Start typing..."/>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <partial name="_Movies" />
+</div>
+
+<div class="row">
+    <div id="moviesPager" class="custom-pager"
+         action="MoviesAjax"
+         target="#listOfMovies"
+         metadata="@ViewBag.PaginationMetadata">
+        <button type="submit" class="btn btn-default btn-previous" onclick="previousPage('#moviesPager')">
+            Prev
+        </button>
+        <span>@ViewBag.PaginationMetadata.currentPage / @ViewBag.PaginationMetadata.totalPages</span>
+        <button type="submit" class="btn btn-default btn-next" onclick="nextPage('#moviesPager')">
+            Next
+        </button>
+    </div>
+</div>

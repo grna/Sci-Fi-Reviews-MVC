@@ -1,0 +1,77 @@
+﻿@model SciFiReviews.Models.ViewModels.ReviewCreateViewModel
+
+<div class="row">
+    <h1>Create Review</h1>
+
+    @if (!ViewContext.ModelState.IsValid)
+    {
+        <div asp-validation-summary="All"></div>
+    }
+
+    <form method="post" asp-action="CreateReview">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label>Review Title</label>
+            <span asp-validation-for="Title" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="Title" placeholder="Review Title" />
+        </div>
+
+        <div class="form-group">
+            <label>Review Body</label>
+            <span asp-validation-for="Body" class="text-danger"></span>
+            <textarea rows="12" type="text" class="form-control" asp-for="Body" placeholder="Review Body"></textarea>
+        </div>
+
+        <div class="form-group col-md-5" style="padding-left:0;">
+            <label>Movie Title</label>
+            <span asp-validation-for="Movie.Title" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="Movie.Title" placeholder="Movie Title" />
+        </div>
+
+        <div class="form-group col-md-5" style="padding-left:0;">
+            <label>Movie Director</label>
+            <span asp-validation-for="Movie.Author" class="text-danger"></span>
+            <input type="text" class="form-control" asp-for="Movie.Author" placeholder="Movie Director" />
+        </div>
+
+        <div class="form-group col-md-2" style="padding-left:0;">
+            <label>Movie Release Year</label>
+            <select class="form-control" asp-for="Movie.ReleaseYear" placeholder="Movie Release Year">
+                @for (int i = DateTime.Now.Year; i > 1900; i--)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Your Rating</label>
+            <select class="form-control" asp-for="Rating" placeholder="Movie Rating" style="width:15%;">
+                @for (int i = 1; i < 6; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Movie Genre</label>
+            <select class="form-control" asp-for="Movie.Genre" style="width:15%;">
+                <option value="">---</option>
+                @foreach (var genre in ViewBag.MovieGenres)
+                {
+                    <option value="@genre">@genre</option>
+                }
+            </select>
+        </div>
+
+        <input type="hidden" asp-for="SubmitTime" value="@DateTime.Now" />
+        <input type="hidden" asp-for="ReviewerName" value="@User.Identity.Name" />
+
+        <br />
+
+        <input type="submit" class="btn btn-danger" value="Submit Review" />
+        <button type="reset" class="btn btn-default" onclick="history.back()">Cancel</button>
+    </form>
+</div>
+

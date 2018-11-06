@@ -1,0 +1,79 @@
+﻿@model SciFiReviews.Models.DataModels.Review
+
+<div class="row">
+    <h1>@Model.Title</h1>
+
+    <div class="well well-lg">
+        <div>
+            <div>Movie: @Model.Movie.Title</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div style="float:right;">
+                    <form id="likeReview" method="post" asp-action="LikeReview">
+                        <input type="hidden" name="reviewId" value="@Model.Id" />
+                        <input type="hidden" name="reviewerName" value="@User.Identity.Name" />
+
+                        @if (Model.PeopleWhoLikedReview.Contains(User.Identity.Name))
+                        {
+                            <input id="like" type="hidden" name="like" value="false" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-heart"></span>
+                            </button>
+
+                        }
+                        else
+                        {
+                            <input id="like" type="hidden" name="like" value="true" />
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-heart-empty"></span>
+                            </button>
+                        }
+                    </form>
+                </div>
+            }
+            <div>Time: @Model.SubmitTime</div>
+            <div>Reviewer: @Model.Reviewer.Username</div>
+            <div id="likedBy">
+                Liked by:
+                @foreach (var item in Model.PeopleWhoLikedReview)
+                {
+                    @item
+                }
+            </div>
+        </div>
+        <br />
+        <div>@Model.Body</div>
+    </div>
+    <br />
+
+    <button type="reset" class="btn btn-default" onclick="history.back()">Go Back</button>
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <button type="button" class="btn btn-default" onclick="toggleComment('#commentForm', this);">
+            Comment
+        </button>
+
+        <br />
+
+        <h3>Comments</h3>
+
+        <br />
+
+        <div id="commentForm" style="display:none;">
+            <form method="post" asp-action="CreateComment">
+                <input type="hidden" name="ReviewerName" value="@User.Identity.Name" />
+                <input type="hidden" name="ReviewId" value="@Model.Id" />
+                <textarea rows="4" name="Body" class="form-control" placeholder="Write your comment here..."></textarea>
+                <br />
+                <input type="submit" class="btn btn-warning btn-sm" value="Submit" />
+            </form>
+        </div>
+    }
+
+    <br />
+
+    <partial name="_Comments" />
+</div>
+

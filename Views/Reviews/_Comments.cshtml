@@ -1,0 +1,32 @@
+﻿@model SciFiReviews.Models.DataModels.Review
+
+@if (Model.Comments != null && Model.Comments.Count > 0)
+{
+    <div id="reviewComments" >
+        
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="well">
+                <div>
+                    <span>@comment.ReviewerName says:</span>
+                    <span style="float:right;">@comment.TimeStamp</span>
+                </div>
+                <br />
+                <div>
+                    @comment.Body
+                </div>
+                @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.ReviewerName)
+                {
+                    <br />
+                    <div>
+                        <form deletecomment method="post" asp-action="DeleteComment">
+                            <input type="hidden" name="commentId" value="@comment.Id" />
+                            <input type="hidden" name="reviewId" value="@Model.Id" />
+                            <input type="submit" class="btn btn-danger btn-sm" value="Delete" onclick="confirm('Are you sure you wish to delete this comment?')"/>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

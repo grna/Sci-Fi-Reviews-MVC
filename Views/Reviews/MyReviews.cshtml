@@ -1,0 +1,21 @@
+﻿@model IEnumerable<SciFiReviews.Models.DataModels.Review>
+
+<div class="row">
+    <h1>My Reviews</h1>
+
+    <partial name="_MyReviews" />
+
+    <div id="myReviewsPager" class="custom-pager"
+         action="MyReviewsAjax"
+         target="#listOfMyReviews"
+         metadata="@ViewBag.PaginationMetadata">
+        <button type="submit" class="btn btn-default btn-previous" onclick="previousPage('#myReviewsPager')">
+            Prev
+        </button>
+        <span>@ViewBag.PaginationMetadata.currentPage / @ViewBag.PaginationMetadata.totalPages</span>
+        <button type="submit" class="btn btn-default btn-next" onclick="nextPage('#myReviewsPager')">
+            Next
+        </button>
+    </div>
+</div>
+

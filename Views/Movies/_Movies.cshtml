@@ -1,0 +1,20 @@
+﻿@using SciFiReviews.Models.DataModels
+@model List<Movie>
+
+<div id="listOfMovies">
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-3">
+            <a asp-action="Movie/@movie.Id">
+                <div class="thumbnail" style="text-align:center;">
+                    <div>
+                        <strong>@movie.Title (@movie.ReleaseYear)</strong>
+                    </div>
+                    <div>
+                        <img src="@movie.ImagePath" alt="No image is available..." width="200" height="300" class="img-thumbnail" />
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
